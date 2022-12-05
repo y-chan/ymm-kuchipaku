@@ -27,8 +27,8 @@ export class LabLine {
       throw Error('lab file is broken')
     }
 
-    this.start = (parseInt(splitLine[0]) / 10000000)
-    this.end = (parseInt(splitLine[1]) / 10000000)
+    this.start = parseInt(splitLine[0]) / 10000000
+    this.end = parseInt(splitLine[1]) / 10000000
     this.phoneme = splitLine[2]
   }
 }
