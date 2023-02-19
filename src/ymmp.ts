@@ -175,6 +175,9 @@ export class YMMP {
           vowelToMouse[lastVowel]
         )
         newItem.Frame = startFrame
+        if (endFrame - startFrame == 0) {
+          endFrame += 1
+        }
         newItem.Length = endFrame - startFrame
 
         items.push(newItem)
