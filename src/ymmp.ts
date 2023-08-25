@@ -117,6 +117,7 @@ export class YMMP {
   ): TachieFaceItemType[] {
     const items: TachieFaceItemType[] = []
 
+    // TODO: 変更可能にする
     const vowelToMouse = {
       a: 'あ.png',
       i: 'い.png',
