@@ -55,11 +55,22 @@ export type VoiceVoxVoiceParameterType = {
   PostPhonemeLength: number
 }
 
-export type TachieFaceParameterType = {
+export type TachieFaceParameterAnimationTachieType = {
   $type: string
   Mouth: string
   [key: string]: any
 }
+
+export type TachieFaceParameterPSDType = {
+  $type: string
+  FilePath: string
+  EnableLayers: string[]
+  [key: string]: any
+}
+
+export type TachieFaceParameterType =
+  | TachieFaceParameterAnimationTachieType
+  | TachieFaceParameterPSDType
 
 export type VoiceItemsType = {
   $type: string

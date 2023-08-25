@@ -7,6 +7,7 @@ import {
   CharacterType,
   ProjectType,
   TachieFaceItemType,
+  TachieFaceParameterType,
   VoiceItemsType,
 } from '@/types/ymmp'
 
@@ -73,12 +74,20 @@ export class YMMP {
     )
   }
 
-  get tachieTemplate(): TachieFaceItemType {
-    return {
-      $type:
-        'YukkuriMovieMaker.Project.Items.TachieFaceItem, YukkuriMovieMaker',
-      CharacterName: 'YourCharaNameHere',
-      TachieFaceParameter: {
+  tachieTemplate(psd?: boolean): TachieFaceItemType {
+    let TachieFaceParameter: TachieFaceParameterType
+    if (psd) {
+      TachieFaceParameter = {
+        $type:
+          'YukkuriMovieMaker.Plugin.Tachie.Psd.PsdTachieFaceParameter, YukkuriMovieMaker.Plugin.Tachie.Psd',
+        IsEnabled: true,
+        FilePath: 'path/to/psd/dir',
+        EnableLayers: [],
+        EyeAnimation: 'Default',
+        MouthAnimation: 'Default',
+      }
+    } else {
+      TachieFaceParameter = {
         $type:
           'YukkuriMovieMaker.Plugin.Tachie.AnimationTachie.FaceParameter, YukkuriMovieMaker.Plugin.Tachie.AnimationTachie',
         EyeAnimation: 'Default',
@@ -95,11 +104,21 @@ export class YMMP {
         Etc1: null,
         Etc2: null,
         Etc3: null,
-      },
+      }
+    }
+    return {
+      $type:
+        'YukkuriMovieMaker.Project.Items.TachieFaceItem, YukkuriMovieMaker',
+      CharacterName: 'YourCharaNameHere',
+      TachieFaceParameter,
       TachieFaceEffects: [],
       Group: 0,
       Frame: 0,
       Layer: 0,
+      KeyFrames: {
+        Frames: [],
+        Count: 0,
+      },
       Length: 0,
       PlaybackRate: 100.0,
       ContentOffset: '00:00:00',
@@ -168,7 +187,7 @@ export class YMMP {
       console.log('start frame: ', startFrame, 'end frame: ', endFrame)
 
       if (endFrame !== -1) {
-        const newItem = this.tachieTemplate
+        const newItem = this.tachieTemplate()
         newItem.Layer = insertLayer
         newItem.CharacterName = characterName
         newItem.TachieFaceParameter.Mouth = path.join(
